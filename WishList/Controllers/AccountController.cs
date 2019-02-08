@@ -40,7 +40,7 @@ namespace WishList.Controllers
 
             var result =_userManager.CreateAsync(new ApplicationUser() { Email = model.Email, UserName = model.Email }, model.Password).Result;
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
                 foreach(var error in result.Errors)
                 {
