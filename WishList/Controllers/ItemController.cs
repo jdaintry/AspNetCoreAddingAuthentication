@@ -31,13 +31,14 @@ namespace WishList.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var user 
-            return View("Create");
+              return View("Create");
         }
 
         [HttpPost]
-        public IActionResult Create(Models.Item item)
+        public IActionResult Create(Item item)
         {
+            var user = _userManager.GetUserAsync(HttpContext.User).Result;
+            item.User = user;
             _context.Items.Add(item);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -45,6 +46,7 @@ namespace WishList.Controllers
 
         public IActionResult Delete(int id)
         {
+            var user = _userManager.GetUserAsync(HttpContext.User).Result;
             var item = _context.Items.FirstOrDefault(e => e.Id == id);
             _context.Items.Remove(item);
             _context.SaveChanges();
