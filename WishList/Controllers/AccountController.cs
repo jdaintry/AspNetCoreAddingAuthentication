@@ -74,6 +74,7 @@ namespace WishList.Controllers
             }
              return RedirectToAction("Index", "Item");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult logout()
