@@ -46,7 +46,7 @@ namespace WishList.Controllers
                 }
                 return View(model);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]
@@ -72,7 +72,7 @@ namespace WishList.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid Login Attemp.");
                 return View(model);
             }
-             return RedirectToAction("Index", "Item");
+             return RedirectToAction("Index","Item");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
