@@ -47,6 +47,8 @@ namespace WishList.Controllers
         public IActionResult Delete(int id)
         {
             var user = _userManager.GetUserAsync(HttpContext.User).Result;
+            if (Item.user != user)
+                return Unauthorized();
             var item = _context.Items.FirstOrDefault(e => e.Id == id);
             _context.Items.Remove(item);
             _context.SaveChanges();
