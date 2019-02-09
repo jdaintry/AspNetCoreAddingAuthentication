@@ -17,11 +17,13 @@ namespace WishList.Controllers
         public ItemController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            var model = _context.Items.ToList();
+            var user = _userManager.GetUserAsync(HttpContext.User).Result;
+            var model = _context.Items.Where(e=> e.User.Id == user.Id).ToList();
 
             return View("Index", model);
         }
@@ -29,6 +31,7 @@ namespace WishList.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var user 
             return View("Create");
         }
 
