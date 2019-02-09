@@ -71,10 +71,14 @@ namespace WishList.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid Login Attemp.");
                 return View(model);
             }
-
-
-            return RedirectToAction("Index", "Item");
+             return RedirectToAction("Index", "Item");
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult logout()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction("Index","Home");
+        }
     }
 }
