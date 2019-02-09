@@ -48,10 +48,8 @@ namespace WishList.Controllers
         {
             var user = _userManager.GetUserAsync(HttpContext.User).Result;
             var item = _context.Items.FirstOrDefault(e => e.Id == id);
-
-            if (item.user != user)
+            if (item.User != user)
                 return Unauthorized();
-            
             _context.Items.Remove(item);
             _context.SaveChanges();
             return RedirectToAction("Index");
