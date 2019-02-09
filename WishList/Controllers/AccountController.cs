@@ -19,7 +19,7 @@ namespace WishList.Controllers
 
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
-            _userManger = userManager;
+            _userManager = userManager;
             _signInManager = signInManager;
         }
         [HttpGet]
@@ -28,5 +28,30 @@ namespace WishList.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult Register(RegisterViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+                return View(model);
+            var result =_userManager.CreateAsync(new ApplicationUser() { Email = model.Email, UserName = model.Email }, model.Password).Result;
+
+            if (!result.Succeeded)
+            {
+                foreach(var error in result.Errors)
+                {
+                    ModelState.AddModelError("Passwors", error.Description);
+                }
+                return View(model);
+            }
+
+
+
+        return RedirectToAction("Index","Home")
+        }
+
+
     }
 }
